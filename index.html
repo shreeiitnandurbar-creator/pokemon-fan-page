@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pokémon Fan Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(to bottom right, #ffcb05, #3b4cca);
+      color: #222;
+      text-align: center;
+    }
+
+    header {
+      background: #ef5350;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .pokemon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100px;
+      height: 100px;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 15px;
+      background: #3b4cca;
+      color: white;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #ef5350;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🔥 Pokémon Fan Page ⚡</h1>
+  <p>Gotta Catch 'Em All!</p>
+</header>
+
+<div class="container">
+  <h2>Popular Pokémon</h2>
+
+  <div class="pokemon-grid">
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
+      <h3>Pikachu</h3>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
+      <h3>Bulbasaur</h3>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png">
+      <h3>Charmander</h3>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
+      <h3>Squirtle</h3>
+    </div>
+  </div>
+
+  <h2>Random Pokémon Generator</h2>
+  <button onclick="getPokemon()">Get Random Pokémon</button>
+  <div id="randomPokemon"></div>
+</div>
+
+<footer>
+  <p>Made by a Pokémon Fan 💛 | Not affiliated with Nintendo</p>
+</footer>
+
+<script>
+  async function getPokemon() {
+    const id = Math.floor(Math.random() * 151) + 1;
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const data = await res.json();
+
+    document.getElementById("randomPokemon").innerHTML = `
+      <div class="card" style="margin:20px auto; max-width:200px;">
+        <img src="${data.sprites.front_default}">
+        <h3>${data.name.toUpperCase()}</h3>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
